@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DamKoto.bd (দামকত) - Compare Online Prices in Bangladesh</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Hind Siliguri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .bangla-text {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-600 selection:text-white flex flex-col min-h-screen">
+
+    <!-- Top Trust & Store Bar -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-3">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                    <i class="fa-solid fa-circle-check"></i> Live BD Store Price Tracker
+                </span>
+                <span class="hidden md:inline text-slate-600">|</span>
+                <span class="hidden md:inline text-slate-400">Daraz • Star Tech • Pickaboo • Chaldal • Ryans • Rokomari • Shwapno • Othoba</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-slate-400 hidden sm:inline">Currency: <strong class="text-white">৳ BDT</strong></span>
+                <button onclick="switchMainTab('guide')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1 rounded-full transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-rocket"></i> Launch This Site Free
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sticky Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:py-4">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                
+                <!-- Brand Logo & Mobile Location -->
+                <div class="flex items-center justify-between">
+                    <a href="#" onclick="switchMainTab('compare'); resetFilters(); return false;" class="flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition">
+                            <i class="fa-solid fa-tags text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-1.5">
+                                <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900">DamKoto<span class="text-emerald-600">.bd</span></span>
+                                <span class="bangla-text text-xs sm:text-sm font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md">দামকত - সেরা দামের খোঁজ</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500 hidden sm:block">Compare 20 Most Popular Online Products Across Bangladesh</p>
+                        </div>
+                    </a>
+
+                    <!-- Mobile Location Toggle -->
+                    <button onclick="toggleLocation()" class="lg:hidden flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 transition">
+                        <i class="fa-solid fa-location-dot text-emerald-600"></i>
+                        <span id="mobileLocationLabel">Inside Dhaka (৳60)</span>
+                    </button>
+                </div>
+
+                <!-- Bilingual Search Bar -->
+                <div class="flex-1 max-w-xl">
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400"></i>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            oninput="handleSearch(this.value)"
+                            placeholder="Search English or বাংলা (e.g., Redmi, মোবাইল, Trimmer, চাল, বই)..." 
+                            class="w-full pl-11 pr-24 py-2.5 bg-slate-100 border border-slate-200 rounded-2xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition"
+                        >
+                        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-20 text-slate-400 hover:text-slate-600 p-1">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                        <button onclick="switchMainTab('compare'); handleSearch(document.getElementById('searchInput').value)" class="absolute right-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-xl transition">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Desktop Controls: Location & MFS Toggle -->
+                <div class="flex flex-wrap items-center justify-between lg:justify-end gap-2">
+                    <!-- Location Selector -->
+                    <div class="hidden lg:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200" title="Delivery fee adjusts automatically">
+                        <button id="btnInsideDhaka" onclick="setLocation('inside')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-white text-slate-900 shadow-sm">
+                            <i class="fa-solid fa-location-dot text-emerald-600"></i> Inside Dhaka (৳60 avg)
+                        </button>
+                        <button id="btnOutsideDhaka" onclick="setLocation('outside')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-600 hover:text-slate-900">
+                            Outside Dhaka (৳120 avg)
+                        </button>
+                    </div>
+
+                    <!-- Include bKash/Nagad Offers Toggle -->
+                    <button id="mfsToggleBtn" onclick="toggleMfsOffers()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-bold transition shadow-sm bg-pink-50 border-pink-200 text-pink-700 hover:bg-pink-100">
+                        <span id="mfsDot" class="w-2.5 h-2.5 rounded-full bg-pink-600 animate-pulse"></span>
+                        <span id="mfsToggleLabel">Include bKash/Nagad Offers: ON</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Primary Navigation Tabs -->
+            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-slate-100">
+                <button id="tabCompare" onclick="switchMainTab('compare')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-emerald-600 text-white shadow-sm">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Compare Prices (20 Top Products)</span>
+                </button>
+                <button id="tabGuide" onclick="switchMainTab('guide')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Free Launch Guide (Domain & Hosting)</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 1: COMPARE PRICES (20 TOP BANGLADESHI PRODUCTS)       -->
+    <!-- ========================================================== -->
+    <div id="viewCompare" class="flex-1">
+        <!-- Hero Banner -->
+        <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white py-7 sm:py-10 px-4 border-b border-slate-800">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div class="max-w-2xl">
+                        <div class="inline-flex items-center gap-2 bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                            <i class="fa-solid fa-fire text-amber-400"></i> Top 20 Most-Bought Online Items in Bangladesh
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight mb-2.5">
+                            Find the <span class="text-emerald-400">Lowest Final Price</span> with Delivery & bKash Offers Included.
+                        </h1>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+                            Currently calculating delivery charges for <strong id="heroLocationText" class="text-white underline decoration-emerald-400">Inside Dhaka (৳60 avg)</strong> across Daraz, Star Tech, Pickaboo, Chaldal, Ryans, Rokomari & Shwapno.
+                        </p>
+
+                        <!-- Quick Bilingual Search Chips -->
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="text-xs font-semibold text-slate-400 mr-1">Popular Searches:</span>
+                            <button onclick="quickSearch('Redmi Note 14')" class="text-xs bg-white/10 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-full border border-white/10 transition">Redmi Note 14</button>
+                            <button onclick="quickSearch('Earbuds')" class="text-xs bg-white/10 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-full border border-white/10 transition">Anker R50i</button>
+                            <button onclick="quickSearch('Trimmer')" class="text-xs bg-white/10 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-full border border-white/10 transition">Kemei Trimmer</button>
+                            <button onclick="quickSearch('চাল')" class="text-xs bg-white/10 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-full border border-white/10 transition bangla-text">তেল ও চাল (Oil & Rice)</button>
+                            <button onclick="quickSearch('হিমু')" class="text-xs bg-white/10 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-full border border-white/10 transition bangla-text">হিমু সমগ্র (Book)</button>
+                            <button onclick="quickSearch('Panjabi')" class="text-xs bg-white/10 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-full border border-white/10 transition">Eid Panjabi</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Box -->
+                    <div class="grid grid-cols-3 gap-3 bg-white/5 border border-white/10 p-4 rounded-2xl shrink-0">
+                        <div class="text-center px-2">
+                            <div class="text-xl sm:text-2xl font-extrabold text-emerald-400">20</div>
+                            <div class="text-[11px] text-slate-300">Top Products</div>
+                        </div>
+                        <div class="text-center px-2 border-x border-white/10">
+                            <div class="text-xl sm:text-2xl font-extrabold text-white">10+</div>
+                            <div class="text-[11px] text-slate-300">BD Online Shops</div>
+                        </div>
+                        <div class="text-center px-2">
+                            <div class="text-xl sm:text-2xl font-extrabold text-pink-400">MFS</div>
+                            <div class="text-[11px] text-slate-300">bKash/Nagad Live</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter & Category Bar -->
+        <section class="max-w-7xl mx-auto px-4 pt-6 pb-2">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                <!-- Category Tabs -->
+                <div id="categoryContainer" class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                    <!-- Injected via JS -->
+                </div>
+
+                <!-- Results Count & Sort -->
+                <div class="flex items-center justify-between lg:justify-end gap-3 text-xs text-slate-600 shrink-0">
+                    <span id="resultsCount" class="font-semibold text-slate-700">Showing 20 products</span>
+                    <select id="sortSelect" onchange="renderProducts()" class="bg-white border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-700 focus:outline-none focus:border-emerald-500 shadow-sm">
+                        <option value="popularity">Sort: Popularity (#1 - #20)</option>
+                        <option value="price-asc">Sort: Lowest Total Price</option>
+                        <option value="savings">Sort: Highest Savings (৳)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Comparison Grid -->
+        <main class="max-w-7xl mx-auto px-4 py-6">
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                <!-- 20 Product Cards Injected Here -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="emptyState" class="hidden text-center py-16 bg-white rounded-3xl border border-slate-200 shadow-sm">
+                <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-1">No matching products found</h3>
+                <p class="text-sm text-slate-500 mb-4">Try searching in English or Bangla (e.g., "Phone", "মোবাইল", "Rice", "চাল", "Book", "বই").</p>
+                <button onclick="resetFilters()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition">
+                    Reset Search & Filters
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 2: FREE LAUNCH GUIDE (DOMAIN & HOSTING BLUEPRINT)     -->
+    <!-- ========================================================== -->
+    <div id="viewGuide" class="hidden flex-1 max-w-5xl mx-auto px-4 py-8 sm:py-12 w-full">
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+            <!-- Guide Header -->
+            <div class="bg-gradient-to-r from-emerald-700 to-teal-800 text-white p-6 sm:p-10">
+                <span class="inline-block bg-white/15 text-emerald-100 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
+                    Zero-Coding Beginner's Blueprint
+                </span>
+                <h1 class="text-2xl sm:text-4xl font-extrabold mb-3">How to Publish DamKoto.bd Live on the Internet for FREE</h1>
+                <p class="text-emerald-100 text-sm sm:text-base max-w-2xl leading-relaxed">
+                    You do not need to hire a developer or pay monthly server fees. Everything—the design, Bangla search, delivery calculator, and 20-product database—is packed inside this single file.
+                </p>
+            </div>
+
+            <div class="p-6 sm:p-10 space-y-8">
+                <!-- Step 1 -->
+                <div class="flex flex-col sm:flex-row gap-5 items-start pb-8 border-b border-slate-200">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 font-extrabold text-xl flex items-center justify-center shrink-0">
+                        1
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Download Your Complete Website File (<code class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">index.html</code>)</h2>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Click the button below to save this exact working website onto your computer or smartphone. Do not rename the file—keeping it named <code class="bg-slate-100 px-1.5 py-0.5 rounded font-semibold">index.html</code> ensures any free web host loads it automatically as your homepage.
+                        </p>
+                        <button onclick="downloadSourceCode()" class="bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-3 rounded-xl inline-flex items-center gap-2.5 shadow-sm transition">
+                            <i class="fa-solid fa-download"></i> Download Ready-to-Publish index.html
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col sm:flex-row gap-5 items-start pb-8 border-b border-slate-200">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 font-extrabold text-xl flex items-center justify-center shrink-0">
+                        2
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Upload to 100% Free Hosting + Free Subdomain</h2>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Choose any of these three trusted global platforms. All of them provide <strong>free lifetime hosting</strong>, free HTTPS security padlock, and a free web link in under 2 minutes:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                                <div class="font-bold text-slate-900 mb-1 flex items-center justify-between">
+                                    <span>Netlify Drop</span>
+                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Easiest</span>
+                                </div>
+                                <p class="text-xs text-slate-600 mb-2">Visit <strong>app.netlify.com/drop</strong>, create a free account, and drag-and-drop your <code class="bg-slate-200 px-1 rounded">index.html</code> file.</p>
+                                <div class="text-[11px] font-semibold text-emerald-700">Free Link: damkoto.netlify.app</div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                                <div class="font-bold text-slate-900 mb-1 flex items-center justify-between">
+                                    <span>Vercel</span>
+                                    <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">Fastest in BD</span>
+                                </div>
+                                <p class="text-xs text-slate-600 mb-2">Sign up at <strong>vercel.com</strong> with your email or GitHub and upload your folder for ultra-fast loading on mobile data.</p>
+                                <div class="text-[11px] font-semibold text-emerald-700">Free Link: damkoto.vercel.app</div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                                <div class="font-bold text-slate-900 mb-1 flex items-center justify-between">
+                                    <span>GitHub Pages</span>
+                                    <span class="text-[10px] bg-slate-200 text-slate-800 px-2 py-0.5 rounded-full font-bold">Unlimited</span>
+                                </div>
+                                <p class="text-xs text-slate-600 mb-2">Create a free repository on <strong>github.com</strong>, upload <code class="bg-slate-200 px-1 rounded">index.html</code>, and enable Pages in Settings.</p>
+                                <div class="text-[11px] font-semibold text-emerald-700">Free Link: yourname.github.io</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col sm:flex-row gap-5 items-start pb-8 border-b border-slate-200">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 font-extrabold text-xl flex items-center justify-center shrink-0">
+                        3
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Get a Custom <code class="text-emerald-700">.com.bd</code> or <code class="text-emerald-700">.com</code> Domain (Optional)</h2>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-3">
+                            Start with your free subdomain first so you spend ৳0. Once visitors start using your comparison links, you can register a custom brand domain and attach it to Netlify or Vercel for free:
+                        </p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> <strong>.com.bd Domain:</strong> Register directly via BTCL (<code class="bg-slate-100 px-1.5 py-0.5 rounded">bdia.btcl.com.bd</code>) for approx. ৳1,100/year using your NID.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> <strong>.com Domain:</strong> Register via Cloudflare Registrar or Namecheap for ~$10–$12/year (~৳1,350).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 4: Monetization -->
+                <div class="flex flex-col sm:flex-row gap-5 items-start">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 font-extrabold text-xl flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">How You Earn Money From Every Click</h2>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Join the free <strong>Daraz Affiliate Program</strong>, <strong>Rokomari Affiliate</strong>, and <strong>Othoba Partner Program</strong>. Replace the store links inside this file with your unique affiliate tracking links—whenever a shopper compares prices on DamKoto.bd and buys from a store, you earn a 3% to 10% commission automatically!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- INTERACTIVE STORE COMPARISON MODAL                         -->
+    <!-- ========================================================== -->
+    <div id="comparisonModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-900/65 backdrop-blur-sm transition-opacity">
+        <div class="min-h-screen px-3 py-6 sm:px-6 flex items-center justify-center">
+            <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+                
+                <!-- Modal Header Bar -->
+                <div class="bg-slate-900 text-white px-5 sm:px-6 py-4 flex items-center justify-between">
+                    <div class="flex flex-wrap items-center gap-2 text-xs font-semibold text-emerald-400">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <span>FULL STORE COMPARISON</span>
+                        <span class="text-slate-500">•</span>
+                        <span id="modalLocationBadge" class="bg-slate-800 text-white px-2.5 py-0.5 rounded-full">INSIDE DHAKA (৳60 AVG)</span>
+                    </div>
+                    <button onclick="closeComparisonModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition" aria-label="Close modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-5 sm:p-7 max-h-[85vh] overflow-y-auto">
+                    
+                    <!-- Product Header Summary -->
+                    <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 pb-5 border-b border-slate-200">
+                        <div id="modalProductVisual" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-white text-3xl shrink-0 shadow-md">
+                            <!-- Icon injected via JS -->
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                <span id="modalRankBadge" class="text-[11px] font-extrabold bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-md">#1 Popular</span>
+                                <span id="modalCategoryBadge" class="text-[11px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-md">Category</span>
+                                <span id="modalMfsStatusBadge" class="text-[11px] font-bold bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-md">bKash/Nagad Offers Applied</span>
+                            </div>
+                            <h2 id="modalProductName" class="text-lg sm:text-2xl font-extrabold text-slate-900 leading-snug">Product Name</h2>
+                            <p id="modalProductBangla" class="bangla-text text-sm text-slate-500 font-medium mb-2">বাংলা নাম</p>
+                            <p id="modalProductSpecs" class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">Specs</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Location & MFS Switcher Inside Modal -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 py-3.5 px-4 bg-slate-50 rounded-2xl border border-slate-200/80 mt-4">
+                        <div class="flex items-center gap-2 text-xs">
+                            <span class="font-bold text-slate-700">Delivery Area:</span>
+                            <button onclick="setLocation('inside')" id="modalLocInside" class="px-2.5 py-1 rounded-lg font-semibold transition">Inside Dhaka</button>
+                            <button onclick="setLocation('outside')" id="modalLocOutside" class="px-2.5 py-1 rounded-lg font-semibold transition">Outside Dhaka</button>
+                        </div>
+                        <button onclick="toggleMfsOffers()" id="modalMfsBtn" class="text-xs font-bold px-3 py-1 rounded-lg border transition">
+                            bKash/Nagad Offers: ON
+                        </button>
+                    </div>
+
+                    <!-- Store Comparison Breakdown -->
+                    <div class="mt-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="text-sm sm:text-base font-bold text-slate-900">
+                                Comparing <span id="modalStoreCount" class="text-emerald-600">0</span> Bangladeshi Online Shops
+                            </h3>
+                            <span class="text-xs text-slate-500">Ranked #1 by Lowest Final Checkout Price</span>
+                        </div>
+
+                        <!-- Responsive Table / Card Comparison List -->
+                        <div id="modalStoreList" class="space-y-3">
+                            <!-- Store rows injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Price Drop Alert Widget -->
+                    <div class="mt-7 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-4 sm:p-5">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shrink-0 shadow-sm">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900">Price Drop Alert (WhatsApp)</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5">Get an instant WhatsApp message if any shop drops below <span id="alertTargetPrice" class="font-bold text-emerald-700">৳0</span>.</p>
+                                </div>
+                            </div>
+                            <form onsubmit="subscribeWhatsAppAlert(event)" class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                                <div class="relative">
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500">+88</span>
+                                    <input 
+                                        type="tel" 
+                                        id="whatsappInput" 
+                                        required
+                                        pattern="01[3-9][0-9]{8}"
+                                        placeholder="017XXXXXXXX" 
+                                        class="w-full sm:w-44 pl-10 pr-3 py-2 text-sm bg-white border border-emerald-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                    >
+                                </div>
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm whitespace-nowrap">
+                                    Set Alert
+                                </button>
+                            </form>
+                        </div>
+                        <div id="whatsappConfirmation" class="hidden mt-3 text-xs font-semibold text-emerald-800 bg-emerald-100 px-3.5 py-2 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                            <span id="whatsappConfirmationText">Alert activated!</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 text-xs sm:text-sm font-medium">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+            <span id="toastMessage">Notification</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+                <div>
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+                            <i class="fa-solid fa-tags text-xs"></i>
+                        </div>
+                        <span class="text-lg font-extrabold text-slate-900">DamKoto<span class="text-emerald-600">.bd</span></span>
+                        <span class="bangla-text text-xs font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">দামকত - সেরা দামের খোঁজ</span>
+                    </div>
+                    <p class="text-xs text-slate-500 max-w-lg">
+                        Built for Bangladeshi shoppers to compare real-time prices, delivery charges, official warranties, and bKash/Nagad discounts across top local online shops.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="switchMainTab('compare')" class="text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-2 rounded-xl transition">
+                        Compare 20 Products
+                    </button>
+                    <button onclick="switchMainTab('guide')" class="text-xs font-semibold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3.5 py-2 rounded-xl transition">
+                        Free Domain & Hosting Guide
+                    </button>
+                </div>
+            </div>
+            <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+                <p>© 2026 DamKoto.bd (দামকত). All prices in Bangladeshi Taka (৳ BDT).</p>
+                <p>Daraz • Star Tech • Pickaboo • Chaldal • Ryans • Rokomari • Shwapno • Othoba</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT APPLICATION LOGIC & 20-PRODUCT DATABASE         -->
+    <!-- ========================================================== -->
+    <script>
+        // 1. Application State
+        const state = {
+            activeTab: 'compare', // 'compare' or 'guide'
+            location: 'inside',   // 'inside' (৳60 avg) or 'outside' (৳120 avg)
+            includeMfs: true,     // bKash/Nagad promo discounts toggle
+            category: 'All',
+            searchQuery: '',
+            activeProductId: null
+        };
+
+        // 2. Filter Categories matching the 20 items
+        const CATEGORIES = [
+            { id: 'All', label: 'All', bangla: 'সব পণ্য', icon: 'fa-border-all' },
+            { id: 'Electronics & Gadgets', label: 'Electronics & Gadgets', bangla: 'ইলেকট্রনিক্স', icon: 'fa-mobile-screen-button' },
+            { id: 'Home & Kitchen', label: 'Home & Kitchen', bangla: 'হোম ও কিচেন', icon: 'fa-blender' },
+            { id: 'Fashion & Lifestyle', label: 'Fashion & Lifestyle', bangla: 'ফ্যাশন', icon: 'fa-shirt' },
+            { id: 'Health, Beauty & Essentials', label: 'Health, Beauty & Essentials', bangla: 'নিত্যপণ্য ও বই', icon: 'fa-basket-shopping' }
+        ];
+
+        // 3. Complete Catalog of Top 20 Most Popular Online Products in Bangladesh
+        const PRODUCTS = [
+            // --- ELECTRONICS & GADGETS (1 - 8) ---
+            {
+                id: 1,
+                rank: 1,
+                name: 'Xiaomi Redmi Note 14 (8GB/128GB)',
+                banglaName: 'শাওমি রেডমি নোট ১৪ স্মার্টফোন',
+                keywords: 'xiaomi redmi note 14 phone mobile smartphone শাওমি রেডমি মোবাইল ফোন',
+                category: 'Electronics & Gadgets',
+                specs: '6.67" 120Hz AMOLED • Helio G99-Ultra • 108MP Pro Camera • 5500mAh 33W Fast Charge',
+                icon: 'fa-mobile-screen-button',
+                gradient: 'from-orange-500 to-amber-600',
+                listings: [
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 22999, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 1000, mfsNote: '৳1,000 bKash Cashback', warranty: 'Official Warranty', isOfficial: true, cod: true, emi: '0% EMI (12M)', url: 'https://www.pickaboo.com' },
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 23499, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 800, mfsNote: '৳800 Nagad Offer', warranty: 'Official Warranty', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.startech.com.bd' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 21490, deliveryInside: 65, deliveryOutside: 130, mfsDiscount: 500, mfsNote: '৳500 App Voucher', warranty: 'Unofficial / Seller Warranty', isOfficial: false, cod: true, emi: 'EMI Available', url: 'https://www.daraz.com.bd' },
+                    { store: 'Gadget & Gear', badgeBg: 'bg-slate-800', basePrice: 23999, deliveryInside: 0, deliveryOutside: 120, mfsDiscount: 1200, mfsNote: '৳1,200 Bank Card Offer', warranty: 'Official Warranty', isOfficial: true, cod: true, emi: '0% EMI (12M)', url: 'https://gadgetandgear.com' }
+                ]
+            },
+            {
+                id: 2,
+                rank: 2,
+                name: 'Anker Soundcore R50i NC TWS Earbuds',
+                banglaName: 'অ্যাংকার সাউন্ডকোর R50i NC ইয়ারবাডস',
+                keywords: 'anker soundcore r50i nc tws earbuds bluetooth headphone ইয়ারবাডস হেডফোন',
+                category: 'Electronics & Gadgets',
+                specs: '42dB Active Noise Cancellation • 10mm Bass Drivers • 45H Playtime • Phone Stand Case',
+                icon: 'fa-headphones',
+                gradient: 'from-sky-500 to-blue-700',
+                listings: [
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 2150, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 100, mfsNote: '৳100 bKash Payment', warranty: 'Official Warranty (18M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.startech.com.bd' },
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 2299, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 Nagad Offer', warranty: 'Official Warranty (18M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.pickaboo.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 2090, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 0, mfsNote: 'No MFS Offer', warranty: 'Official Warranty (12M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Gadget & Gear', badgeBg: 'bg-slate-800', basePrice: 2350, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 bKash Cashback', warranty: 'Official Warranty (18M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://gadgetandgear.com' }
+                ]
+            },
+            {
+                id: 3,
+                rank: 3,
+                name: 'Amazfit Bip 5 Unity Smartwatch',
+                banglaName: 'অ্যামাজফিট বিপ ৫ ইউনিটি স্মার্টওয়াচ',
+                keywords: 'amazfit bip 5 unity smartwatch watch fitness band স্মার্টওয়াচ ঘড়ি',
+                category: 'Electronics & Gadgets',
+                specs: '1.91" HD Display • Stainless Steel Frame • Bluetooth Calling • 11-Day Battery • IP68',
+                icon: 'fa-clock',
+                gradient: 'from-indigo-500 to-purple-700',
+                listings: [
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 5490, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 250, mfsNote: '৳250 bKash Offer', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.startech.com.bd' },
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 5690, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 400, mfsNote: '৳400 Nagad Cashback', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.pickaboo.com' },
+                    { store: 'Ryans', badgeBg: 'bg-red-700', basePrice: 5550, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 bKash Discount', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.ryans.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 5390, deliveryInside: 65, deliveryOutside: 130, mfsDiscount: 150, mfsNote: '৳150 Voucher', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'EMI Available', url: 'https://www.daraz.com.bd' }
+                ]
+            },
+            {
+                id: 4,
+                rank: 4,
+                name: 'Xiaomi 20000mAh Redmi Fast Charge Power Bank',
+                banglaName: 'শাওমি ২০০০০mAh ফাস্ট চার্জ পাওয়ার ব্যাংক',
+                keywords: 'xiaomi 20000mah redmi power bank battery charger পাওয়ার ব্যাংক',
+                category: 'Electronics & Gadgets',
+                specs: '20,000mAh High Density Li-Polymer • 18W Two-Way Fast Charge • Dual USB-A + Type-C',
+                icon: 'fa-battery-full',
+                gradient: 'from-slate-700 to-slate-900',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 2190, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 120, mfsNote: '৳120 bKash Payment', warranty: 'Official Warranty (6M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 2250, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 100, mfsNote: '৳100 Nagad Offer', warranty: 'Official Warranty (6M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.startech.com.bd' },
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 2350, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 bKash Cashback', warranty: 'Official Warranty (6M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.pickaboo.com' }
+                ]
+            },
+            {
+                id: 5,
+                rank: 5,
+                name: 'Anker 30W USB-C GaN Fast Charger Adapter',
+                banglaName: 'অ্যাংকার ৩০ওয়াট GaN ফাস্ট চার্জার অ্যাডাপ্টার',
+                keywords: 'anker 30w usb-c gan fast charger adapter iphone samsung চার্জার',
+                category: 'Electronics & Gadgets',
+                specs: '30W PowerIQ 3.0 • Foldable Prongs • ActiveShield 2.0 Temp Control • iPhone/Samsung Ready',
+                icon: 'fa-plug-circle-bolt',
+                gradient: 'from-cyan-600 to-blue-700',
+                listings: [
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 1690, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 bKash Cashback', warranty: 'Official Warranty (18M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.pickaboo.com' },
+                    { store: 'Gadget & Gear', badgeBg: 'bg-slate-800', basePrice: 1750, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 100, mfsNote: '৳100 Nagad Discount', warranty: 'Official Warranty (18M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://gadgetandgear.com' },
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 1650, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 0, mfsNote: 'Regular Price', warranty: 'Official Warranty (18M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.startech.com.bd' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 1590, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 80, mfsNote: '৳80 App Voucher', warranty: 'Official Warranty (12M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' }
+                ]
+            },
+            {
+                id: 6,
+                rank: 6,
+                name: 'Kemei KM-1986 Professional Rechargeable Hair Trimmer',
+                banglaName: 'কেমেই KM-1986 প্রফেশনাল হেয়ার ট্রিমার',
+                keywords: 'kemei km-1986 hair trimmer clipper shaver ট্রিমার শেভার',
+                category: 'Electronics & Gadgets',
+                specs: 'Full Metal Body • LCD Battery Display • 300 Min Runtime • USB Rechargeable • 4 Guide Combs',
+                icon: 'fa-scissors',
+                gradient: 'from-amber-600 to-yellow-700',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 1490, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 100, mfsNote: '৳100 bKash Payment', warranty: 'Seller Warranty (6M)', isOfficial: false, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 1650, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 Nagad Cashback', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.pickaboo.com' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 1580, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 80, mfsNote: '৳80 bKash Discount', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' }
+                ]
+            },
+            {
+                id: 7,
+                rank: 7,
+                name: 'TP-Link Archer C6 Gigabit Wi-Fi Router + Mini UPS Combo',
+                banglaName: 'টিপি-লিংক আর্চার C6 রাউটার ও মিনি ইউপিএস কম্বো',
+                keywords: 'tp-link archer c6 gigabit wifi router mini ups load shedding রাউটার ইউপিএস',
+                category: 'Electronics & Gadgets',
+                specs: 'AC1200 Dual-Band Gigabit • 4 High-Gain Antennas • 8800mAh Router Mini UPS (4Hr Backup)',
+                icon: 'fa-wifi',
+                gradient: 'from-teal-600 to-emerald-700',
+                listings: [
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 4450, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 bKash Cashback', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.startech.com.bd' },
+                    { store: 'Ryans', badgeBg: 'bg-red-700', basePrice: 4520, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 250, mfsNote: '৳250 Nagad Offer', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.ryans.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 4380, deliveryInside: 70, deliveryOutside: 130, mfsDiscount: 100, mfsNote: '৳100 Voucher', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' }
+                ]
+            },
+            {
+                id: 8,
+                rank: 8,
+                name: 'MSI Pro MP251 24.5-inch 100Hz IPS Monitor',
+                banglaName: 'এমএসআই প্রো MP251 ২৪.৫ ইঞ্চি ১০০Hz আইপিএস মনিটর',
+                keywords: 'msi pro mp251 24.5 inch 100hz ips monitor display pc মনিটর কম্পিউটার',
+                category: 'Electronics & Gadgets',
+                specs: '24.5" FHD (1920x1080) IPS • 100Hz Refresh Rate • 1ms MPRT • Eye-Care & Built-in Speakers',
+                icon: 'fa-desktop',
+                gradient: 'from-blue-700 to-indigo-900',
+                listings: [
+                    { store: 'Star Tech', badgeBg: 'bg-blue-900', basePrice: 15800, deliveryInside: 60, deliveryOutside: 150, mfsDiscount: 500, mfsNote: '৳500 bKash Payment', warranty: 'Official Warranty (3 Yrs)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.startech.com.bd' },
+                    { store: 'Ryans', badgeBg: 'bg-red-700', basePrice: 15900, deliveryInside: 60, deliveryOutside: 150, mfsDiscount: 650, mfsNote: '৳650 Nagad Cashback', warranty: 'Official Warranty (3 Yrs)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.ryans.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 16200, deliveryInside: 100, deliveryOutside: 200, mfsDiscount: 400, mfsNote: '৳400 Mall Voucher', warranty: 'Official Warranty (3 Yrs)', isOfficial: true, cod: false, emi: '0% EMI (6M)', url: 'https://www.daraz.com.bd' }
+                ]
+            },
+
+            // --- HOME & KITCHEN (9 - 12) ---
+            {
+                id: 9,
+                rank: 9,
+                name: 'Philips HD9200/90 Daily Collection Air Fryer',
+                banglaName: 'ফিলিপস HD9200/90 ডেইলি কালেকশন এয়ার ফ্রায়ার',
+                keywords: 'philips hd9200 air fryer kitchen oil free cooking এয়ার ফ্রায়ার',
+                category: 'Home & Kitchen',
+                specs: '4.1L Capacity • Rapid Air Technology (90% Less Fat) • 1400W • Dishwasher Safe Basket',
+                icon: 'fa-fire-burner',
+                gradient: 'from-rose-600 to-red-700',
+                listings: [
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 10490, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 700, mfsNote: '৳700 bKash Cashback', warranty: 'Official Warranty (2 Yrs)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.pickaboo.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 10250, deliveryInside: 80, deliveryOutside: 150, mfsDiscount: 400, mfsNote: '৳400 App Voucher', warranty: 'Official Warranty (2 Yrs)', isOfficial: true, cod: true, emi: 'EMI Available', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 10600, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 500, mfsNote: '৳500 Nagad Offer', warranty: 'Official Warranty (2 Yrs)', isOfficial: true, cod: true, emi: '0% EMI (6M)', url: 'https://www.othoba.com' }
+                ]
+            },
+            {
+                id: 10,
+                rank: 10,
+                name: 'Miyako 3-in-1 Heavy Duty Mixer Grinder (750W)',
+                banglaName: 'মিয়াকো ৩-ইন-১ হেভি ডিউটি মিক্সার গ্রাইন্ডার',
+                keywords: 'miyako 3 in 1 mixer grinder blender masala kitchen ব্লেন্ডার মিক্সার গ্রাইন্ডার',
+                category: 'Home & Kitchen',
+                specs: '750W Copper Motor • 3 Stainless Steel Jars (Wet, Dry, Chutney) • Overload Protector',
+                icon: 'fa-blender',
+                gradient: 'from-emerald-600 to-teal-800',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 3690, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 bKash Payment', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 3850, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 300, mfsNote: '৳300 Nagad Cashback', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' },
+                    { store: 'Chaldal', badgeBg: 'bg-amber-500', basePrice: 3790, deliveryInside: 49, deliveryOutside: 110, mfsDiscount: 150, mfsNote: '৳150 bKash Grocery/Home', warranty: 'Official Warranty (1 Yr)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://chaldal.com' }
+                ]
+            },
+            {
+                id: 11,
+                rank: 11,
+                name: 'Walton / Defender Rechargeable Table Fan with LED Light',
+                banglaName: 'রিচার্জেবল টেবিল ফ্যান ও এলইডি লাইট (১২ ইঞ্চি)',
+                keywords: 'walton defender rechargeable table fan led light summer load shedding চার্জার ফ্যান',
+                category: 'Home & Kitchen',
+                specs: '12-Inch Blades • 6V 4.5Ah Dual Battery • Up to 6 Hours Backup • Built-in Bright LED Night Light',
+                icon: 'fa-fan',
+                gradient: 'from-cyan-500 to-sky-700',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 2890, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 bKash Offer', warranty: 'Official Warranty (6M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 2950, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 220, mfsNote: '৳220 Nagad Discount', warranty: 'Official Warranty (6M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' },
+                    { store: 'Chaldal', badgeBg: 'bg-amber-500', basePrice: 2990, deliveryInside: 49, deliveryOutside: 110, mfsDiscount: 100, mfsNote: '৳100 bKash Cashback', warranty: 'Official Warranty (6M)', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://chaldal.com' }
+                ]
+            },
+            {
+                id: 12,
+                rank: 12,
+                name: '360° Rotating Stainless Steel Spin Mop & Bucket Set',
+                banglaName: '৩৬০° রোটেটিং স্টেইনলেস স্টিল স্পিন মপ ও বালতি সেট',
+                keywords: '360 rotating spin mop bucket floor cleaner home organizer মপ বালতি ঘর মোছা',
+                category: 'Home & Kitchen',
+                specs: 'Stainless Steel Wringer Basket • 2 Microfiber Refill Heads • Extendable Steel Handle + Drain Plug',
+                icon: 'fa-bucket',
+                gradient: 'from-teal-500 to-cyan-700',
+                listings: [
+                    { store: 'Chaldal', badgeBg: 'bg-amber-500', basePrice: 1190, deliveryInside: 49, deliveryOutside: 110, mfsDiscount: 80, mfsNote: '৳80 bKash Cashback', warranty: '7-Day Replacement', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://chaldal.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 1120, deliveryInside: 65, deliveryOutside: 130, mfsDiscount: 50, mfsNote: '৳50 App Voucher', warranty: '7-Day Return', isOfficial: false, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Shwapno', badgeBg: 'bg-red-600', basePrice: 1250, deliveryInside: 50, deliveryOutside: 110, mfsDiscount: 100, mfsNote: '৳100 Nagad Offer', warranty: '7-Day Replacement', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.shwapno.com' }
+                ]
+            },
+
+            // --- FASHION & LIFESTYLE (13 - 16) ---
+            {
+                id: 13,
+                rank: 13,
+                name: 'Aarong / Deshal Cotton Unstitched Three-Piece Suit',
+                banglaName: 'দেশাল / আড়ং সুতি আনস্টিচড থ্রি-পিস (সালোয়ার কামিজ)',
+                keywords: 'aarong deshal cotton three piece salwar kameez dress women থ্রি পিস সালোয়ার কামিজ',
+                category: 'Fashion & Lifestyle',
+                specs: '100% Pure Handloom Cotton Kameez • Block & Screen Printed • Matching Cotton Salwar & Orna',
+                icon: 'fa-person-dress',
+                gradient: 'from-pink-600 to-rose-700',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 2350, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 Fashion Voucher', warranty: '7-Day Size/Color Exchange', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 2290, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 180, mfsNote: '৳180 bKash Payment', warranty: '7-Day Easy Return', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' },
+                    { store: 'Aarong Online', badgeBg: 'bg-amber-700', basePrice: 2490, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 Nagad Lifestyle Offer', warranty: 'Authentic Brand Store', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.aarong.com' }
+                ]
+            },
+            {
+                id: 14,
+                rank: 14,
+                name: 'Tangail Half-Silk Jamdani Saree with Blouse Piece',
+                banglaName: 'টাঙ্গাইল হাফ-সিল্ক জামদানি শাড়ি (ব্লাউজ পিস সহ)',
+                keywords: 'tangail half silk jamdani saree women traditional wear জামদানি শাড়ি টাঙ্গাইল',
+                category: 'Fashion & Lifestyle',
+                specs: 'Authentic Tangail Handloom Weave • 12 Haat Length + Running Blouse Piece • Festive Zari Border',
+                icon: 'fa-vest-patches',
+                gradient: 'from-purple-600 to-fuchsia-800',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 3150, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 bKash Cashback', warranty: '7-Day Easy Return', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 3250, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 300, mfsNote: '৳300 Nagad Festive Offer', warranty: '7-Day Easy Return', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' },
+                    { store: 'Shwapno', badgeBg: 'bg-red-600', basePrice: 3390, deliveryInside: 50, deliveryOutside: 110, mfsDiscount: 250, mfsNote: '৳250 bKash Discount', warranty: 'Authentic Handloom', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.shwapno.com' }
+                ]
+            },
+            {
+                id: 15,
+                rank: 15,
+                name: 'Yellow / Sailor Premium Cotton Eid Panjabi for Men',
+                banglaName: 'ইয়েলো / সেইলর প্রিমিয়াম কটন ঈদ পাঞ্জাবি',
+                keywords: 'yellow sailor cotton eid panjabi men shirt fashion পাঞ্জাবি ছেলেদের ঈদ',
+                category: 'Fashion & Lifestyle',
+                specs: '100% Mercerized Egyptian Cotton • Minimal Collar Embroidery • Slim-Regular Fit (S to XXL)',
+                icon: 'fa-shirt',
+                gradient: 'from-emerald-700 to-teal-900',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 2490, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 bKash Payment', warranty: 'Official Brand Mall', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 2450, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 Nagad Offer', warranty: '7-Day Size Exchange', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' },
+                    { store: 'Pickaboo', badgeBg: 'bg-sky-600', basePrice: 2590, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 250, mfsNote: '৳250 bKash Cashback', warranty: 'Authentic Brand Warranty', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.pickaboo.com' }
+                ]
+            },
+            {
+                id: 16,
+                rank: 16,
+                name: "Bata / Apex Men's Lightweight Casual Sneakers",
+                banglaName: 'বাটা / এপেক্স ছেলেদের লাইটওয়েট ক্যাজুয়াল স্নিকার্স',
+                keywords: 'bata apex mens lightweight casual sneakers shoes footwear জুতা স্নিকার্স বাটা এপেক্স',
+                category: 'Fashion & Lifestyle',
+                specs: 'Breathable Knit Mesh Upper • EVA Shock-Absorbing Sole • Anti-Slip Grip • Sizes 39–44',
+                icon: 'fa-shoe-prints',
+                gradient: 'from-slate-600 to-slate-800',
+                listings: [
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 2190, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 150, mfsNote: '৳150 Flagship Store Voucher', warranty: 'Official Brand Store', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Othoba', badgeBg: 'bg-rose-600', basePrice: 2250, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 200, mfsNote: '৳200 bKash Cashback', warranty: 'Official Brand Warranty', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.othoba.com' },
+                    { store: 'Apex4u', badgeBg: 'bg-red-700', basePrice: 2390, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 250, mfsNote: '৳250 Nagad Instant Discount', warranty: 'Official Apex Warranty', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.apex4u.com' }
+                ]
+            },
+
+            // --- HEALTH, BEAUTY & ESSENTIALS (17 - 20) ---
+            {
+                id: 17,
+                rank: 17,
+                name: 'Cosrx Advanced Snail 96 Mucin Power Essence (100ml)',
+                banglaName: 'কসআরএক্স স্নেইল ৯৬ মিউসিন পাওয়ার এসেন্স (১০০ মি.লি.)',
+                keywords: 'cosrx snail 96 mucin power essence skincare korean face serum স্কিনকেয়ার সিরাম',
+                category: 'Health, Beauty & Essentials',
+                specs: '96.3% Snail Secretion Filtrate • Deep Hydration & Barrier Repair • Authentic Korean Import',
+                icon: 'fa-droplet',
+                gradient: 'from-amber-500 to-orange-600',
+                listings: [
+                    { store: 'Daraz Mall', badgeBg: 'bg-orange-500', basePrice: 1450, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 100, mfsNote: '৳100 bKash Beauty Offer', warranty: '100% Authentic Verified', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' },
+                    { store: 'Shwapno', badgeBg: 'bg-red-600', basePrice: 1520, deliveryInside: 45, deliveryOutside: 110, mfsDiscount: 120, mfsNote: '৳120 Nagad Cashback', warranty: 'BSTI Approved Import', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.shwapno.com' },
+                    { store: 'Chaldal', badgeBg: 'bg-amber-500', basePrice: 1490, deliveryInside: 49, deliveryOutside: 110, mfsDiscount: 80, mfsNote: '৳80 bKash Payment', warranty: '100% Authentic Import', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://chaldal.com' }
+                ]
+            },
+            {
+                id: 18,
+                rank: 18,
+                name: 'Huggies Wonder Pants Baby Diapers (XL - 44 Pcs)',
+                banglaName: 'হাগিস ওয়ান্ডার প্যান্টস বেবি ডায়াপার (XL - ৪৪ পিস)',
+                keywords: 'huggies wonder pants baby diapers xl wipes kids ডায়াপার বাচ্চাদের',
+                category: 'Health, Beauty & Essentials',
+                specs: 'Size XL (12–17 kg) • 44 Pant-Style Diapers • Bubble-Bed Technology • 12-Hr Absorption',
+                icon: 'fa-baby',
+                gradient: 'from-sky-400 to-blue-600',
+                listings: [
+                    { store: 'Chaldal', badgeBg: 'bg-amber-500', basePrice: 1290, deliveryInside: 39, deliveryOutside: 100, mfsDiscount: 70, mfsNote: '৳70 bKash Grocery Cashback', warranty: 'Sealed Fresh Stock', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://chaldal.com' },
+                    { store: 'Shwapno', badgeBg: 'bg-red-600', basePrice: 1320, deliveryInside: 45, deliveryOutside: 100, mfsDiscount: 100, mfsNote: '৳100 Nagad Offer', warranty: 'Sealed Fresh Stock', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.shwapno.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 1260, deliveryInside: 60, deliveryOutside: 120, mfsDiscount: 50, mfsNote: '৳50 Mart Voucher', warranty: 'Official Brand Store', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' }
+                ]
+            },
+            {
+                id: 19,
+                rank: 19,
+                name: 'Humayun Ahmed - Himu Samagra (Hardcover Book)',
+                banglaName: 'হুমায়ূন আহমেদ - হিমু সমগ্র (হার্ডকভার বই)',
+                keywords: 'humayun ahmed himu samagra hardcover book rokomari novel হুমায়ূন আহমেদ হিমু সমগ্র বই',
+                category: 'Health, Beauty & Essentials',
+                specs: 'Ananya Prokashoni • Complete Himu Collection • Premium Offset Paper • Hardcover Edition',
+                icon: 'fa-book-open',
+                gradient: 'from-amber-600 to-yellow-700',
+                listings: [
+                    { store: 'Rokomari', badgeBg: 'bg-emerald-600', basePrice: 780, deliveryInside: 50, deliveryOutside: 90, mfsDiscount: 60, mfsNote: '৳60 bKash Book Fair Offer', warranty: 'Original Publisher Print', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.rokomari.com' },
+                    { store: 'Wafilife', badgeBg: 'bg-teal-700', basePrice: 765, deliveryInside: 55, deliveryOutside: 95, mfsDiscount: 50, mfsNote: '৳50 Nagad Cashback', warranty: 'Original Publisher Print', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.wafilife.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 810, deliveryInside: 60, deliveryOutside: 110, mfsDiscount: 40, mfsNote: '৳40 App Voucher', warranty: 'Original Print', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' }
+                ]
+            },
+            {
+                id: 20,
+                rank: 20,
+                name: 'Rupchanda Fortified Soybean Oil (5L) & Miniket Rice (5kg) Combo',
+                banglaName: 'রূপচাঁদা সয়াবিন তেল (৫ লিটার) ও মিনিকেট চাল (৫ কেজি) কম্বো',
+                keywords: 'rupchanda soybean oil 5 litre miniket rice chal grocery তেল সয়াবিন মিনিকেট চাল বাজার',
+                category: 'Health, Beauty & Essentials',
+                specs: '5 Litre Vitamin A & D Fortified Soybean Oil + 5kg Premium Sortex Dinajpur Miniket Rice',
+                icon: 'fa-basket-shopping',
+                gradient: 'from-emerald-600 to-green-700',
+                listings: [
+                    { store: 'Chaldal', badgeBg: 'bg-amber-500', basePrice: 1295, deliveryInside: 29, deliveryOutside: 99, mfsDiscount: 80, mfsNote: '৳80 bKash Bazar Cashback', warranty: 'Fresh Expiry Guarantee', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://chaldal.com' },
+                    { store: 'Shwapno', badgeBg: 'bg-red-600', basePrice: 1310, deliveryInside: 35, deliveryOutside: 100, mfsDiscount: 100, mfsNote: '৳100 Nagad Superstore Offer', warranty: 'Fresh Expiry Guarantee', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.shwapno.com' },
+                    { store: 'Daraz', badgeBg: 'bg-orange-500', basePrice: 1285, deliveryInside: 65, deliveryOutside: 130, mfsDiscount: 50, mfsNote: '৳50 Mart Voucher', warranty: 'Sealed Brand Pack', isOfficial: true, cod: true, emi: 'No EMI', url: 'https://www.daraz.com.bd' }
+                ]
+            }
+        ];
+
+        // ==========================================
+        // 4. PRICE CALCULATION HELPERS
+        // ==========================================
+        function formatBDT(amount) {
+            return '৳' + Math.round(amount).toLocaleString('en-IN');
+        }
+
+        function evaluateListing(listing) {
+            const delivery = state.location === 'inside' ? listing.deliveryInside : listing.deliveryOutside;
+            const discount = state.includeMfs ? listing.mfsDiscount : 0;
+            const total = listing.basePrice + delivery - discount;
+            return {
+                ...listing,
+                appliedDelivery: delivery,
+                appliedDiscount: discount,
+                finalTotal: total
+            };
+        }
+
+        function getProcessedProduct(product) {
+            const evaluatedListings = product.listings
+                .map(evaluateListing)
+                .sort((a, b) => a.finalTotal - b.finalTotal);
+
+            const bestDeal = evaluatedListings[0];
+            const highestDeal = evaluatedListings[evaluatedListings.length - 1];
+            const maxSavings = Math.max(0, highestDeal.finalTotal - bestDeal.finalTotal);
+
+            return {
+                ...product,
+                evaluatedListings,
+                bestDeal,
+                maxSavings
+            };
+        }
+
+        // ==========================================
+        // 5. UI RENDERING FUNCTIONS
+        // ==========================================
+        function renderCategories() {
+            const container = document.getElementById('categoryContainer');
+            container.innerHTML = CATEGORIES.map(cat => {
+                const count = cat.id === 'All'
+                    ? PRODUCTS.length
+                    : PRODUCTS.filter(p => p.category === cat.id).length;
+
+                const isActive = state.category === cat.id;
+                const activeClasses = isActive
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-400 hover:text-emerald-700';
+
+                return `
+                    <button onclick="setCategory('${cat.id}')" class="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-bold transition ${activeClasses}">
+                        <i class="fa-solid ${cat.icon}"></i>
+                        <span>${cat.label}</span>
+                        <span class="px-1.5 py-0.5 rounded-md text-[10px] ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}">${count}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            const resultsCount = document.getElementById('resultsCount');
+            const sortBy = document.getElementById('sortSelect').value;
+
+            // Filter by category and bilingual search query
+            let filtered = PRODUCTS.filter(product => {
+                const matchesCat = state.category === 'All' || product.category === state.category;
+                if (!matchesCat) return false;
+
+                if (!state.searchQuery.trim()) return true;
+                const q = state.searchQuery.toLowerCase().trim();
+                const searchable = `${product.name} ${product.banglaName} ${product.keywords} ${product.category} ${product.specs}`.toLowerCase();
+                return searchable.includes(q);
+            }).map(getProcessedProduct);
+
+            // Sort products
+            if (sortBy === 'price-asc') {
+                filtered.sort((a, b) => a.bestDeal.finalTotal - b.bestDeal.finalTotal);
+            } else if (sortBy === 'savings') {
+                filtered.sort((a, b) => b.maxSavings - a.maxSavings);
+            } else {
+                filtered.sort((a, b) => a.rank - b.rank);
+            }
+
+            resultsCount.textContent = `Showing ${filtered.length} of ${PRODUCTS.length} top products`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(prod => {
+                const best = prod.bestDeal;
+                const hasMfsApplied = state.includeMfs && best.appliedDiscount > 0;
+
+                // Mini store comparison preview rows (top 3 stores)
+                const miniStoreRows = prod.evaluatedListings.slice(0, 3).map((item, idx) => `
+                    <div class="flex items-center justify-between text-xs py-1 ${idx === 0 ? 'font-bold text-emerald-700' : 'text-slate-600'}">
+                        <span class="flex items-center gap-1.5 truncate">
+                            <span class="w-2 h-2 rounded-full ${idx === 0 ? 'bg-emerald-500' : 'bg-slate-300'}"></span>
+                            ${item.store}
+                        </span>
+                        <span>${formatBDT(item.finalTotal)}</span>
+                    </div>
+                `).join('');
+
+                return `
+                    <article class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-emerald-300 transition flex flex-col justify-between overflow-hidden group">
+                        <div>
+                            <!-- Top Visual Header -->
+                            <div class="relative p-4 bg-gradient-to-br ${prod.gradient} text-white flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-11 h-11 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-xl">
+                                        <i class="fa-solid ${prod.icon}"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-extrabold uppercase tracking-wider bg-black/25 px-2 py-0.5 rounded-full">
+                                            #${prod.rank} Best Seller
+                                        </span>
+                                        <div class="text-[11px] text-white/90 mt-1 font-medium">${prod.category}</div>
+                                    </div>
+                                </div>
+                                ${prod.maxSavings > 0 ? `
+                                    <span class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2.5 py-1 rounded-lg shadow-sm">
+                                        Save ${formatBDT(prod.maxSavings)}
+                                    </span>
+                                ` : ''}
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-4">
+                                <h2 class="text-sm font-extrabold text-slate-900 leading-snug line-clamp-2 group-hover:text-emerald-700 transition">
+                                    ${prod.name}
+                                </h2>
+                                <p class="bangla-text text-xs text-slate-500 mt-0.5 mb-2.5 truncate">${prod.banglaName}</p>
+
+                                <!-- Badges: Warranty & COD -->
+                                <div class="flex flex-wrap items-center gap-1.5 mb-3">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${best.isOfficial ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">
+                                        <i class="fa-solid ${best.isOfficial ? 'fa-shield-halved' : 'fa-circle-info'} mr-1"></i>${best.isOfficial ? 'Official' : 'Unofficial'}
+                                    </span>
+                                    ${best.cod ? `<span class="text-[10px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">COD</span>` : ''}
+                                    ${hasMfsApplied ? `<span class="text-[10px] font-bold bg-pink-50 text-pink-700 border border-pink-200 px-2 py-0.5 rounded-md">bKash/Nagad Offer</span>` : ''}
+                                </div>
+
+                                <!-- Best Lowest Total Price Box -->
+                                <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-xl p-3 mb-3">
+                                    <div class="flex items-center justify-between text-[11px] text-emerald-800 font-semibold mb-0.5">
+                                        <span>Lowest Total at <strong>${best.store}</strong></span>
+                                        <span>+${formatBDT(best.appliedDelivery)} del.</span>
+                                    </div>
+                                    <div class="flex items-baseline justify-between">
+                                        <span class="text-xl font-extrabold text-slate-900">${formatBDT(best.finalTotal)}</span>
+                                        <span class="text-[10px] text-slate-500 line-through">${formatBDT(best.basePrice + best.appliedDelivery)}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Store Comparison Preview -->
+                                <div class="border-t border-slate-100 pt-2">
+                                    <div class="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Store Price Snapshot</div>
+                                    ${miniStoreRows}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Action Button -->
+                        <div class="px-4 pb-4">
+                            <button onclick="openComparisonModal(${prod.id})" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 shadow-sm">
+                                <span>Compare All Shops (${prod.listings.length})</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // 6. INTERACTIVE MODAL & CONTROLS
+        // ==========================================
+        function openComparisonModal(productId) {
+            state.activeProductId = productId;
+            const rawProduct = PRODUCTS.find(p => p.id === productId);
+            if (!rawProduct) return;
+
+            const product = getProcessedProduct(rawProduct);
+            const modal = document.getElementById('comparisonModal');
+
+            // Populate Header & Visual
+            const visualEl = document.getElementById('modalProductVisual');
+            visualEl.className = `w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center text-white text-3xl shrink-0 shadow-md`;
+            visualEl.innerHTML = `<i class="fa-solid ${product.icon}"></i>`;
+
+            document.getElementById('modalRankBadge').textContent = `#${product.rank} Most Popular`;
+            document.getElementById('modalCategoryBadge').textContent = product.category;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductBangla').textContent = product.banglaName;
+            document.getElementById('modalProductSpecs').textContent = product.specs;
+            document.getElementById('modalStoreCount').textContent = product.evaluatedListings.length;
+
+            // Update location & MFS badges inside modal
+            const locText = state.location === 'inside' ? 'INSIDE DHAKA (৳60 AVG)' : 'OUTSIDE DHAKA (৳120 AVG)';
+            document.getElementById('modalLocationBadge').textContent = locText;
+
+            const mfsBadge = document.getElementById('modalMfsStatusBadge');
+            if (state.includeMfs) {
+                mfsBadge.textContent = 'bKash/Nagad Offers Applied';
+                mfsBadge.className = 'text-[11px] font-bold bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-md';
+            } else {
+                mfsBadge.textContent = 'Regular Cash Price (No MFS)';
+                mfsBadge.className = 'text-[11px] font-bold bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-md';
+            }
+
+            // Sync Modal Quick Switchers
+            const mIn = document.getElementById('modalLocInside');
+            const mOut = document.getElementById('modalLocOutside');
+            if (state.location === 'inside') {
+                mIn.className = 'px-2.5 py-1 rounded-lg font-bold bg-emerald-600 text-white shadow-sm';
+                mOut.className = 'px-2.5 py-1 rounded-lg font-semibold bg-white text-slate-600 border border-slate-200';
+            } else {
+                mOut.className = 'px-2.5 py-1 rounded-lg font-bold bg-emerald-600 text-white shadow-sm';
+                mIn.className = 'px-2.5 py-1 rounded-lg font-semibold bg-white text-slate-600 border border-slate-200';
+            }
+
+            const mMfsBtn = document.getElementById('modalMfsBtn');
+            mMfsBtn.textContent = state.includeMfs ? 'bKash/Nagad Offers: ON' : 'bKash/Nagad Offers: OFF';
+            mMfsBtn.className = state.includeMfs
+                ? 'text-xs font-bold px-3 py-1 rounded-lg border bg-pink-50 border-pink-200 text-pink-700'
+                : 'text-xs font-bold px-3 py-1 rounded-lg border bg-white border-slate-200 text-slate-600';
+
+            // Populate Store Comparison List
+            const storeListEl = document.getElementById('modalStoreList');
+            storeListEl.innerHTML = product.evaluatedListings.map((shop, index) => {
+                const isBest = index === 0;
+                const cardBorder = isBest
+                    ? 'border-2 border-emerald-500 bg-emerald-50/40 shadow-md'
+                    : 'border border-slate-200 bg-white';
+
+                return `
+                    <div class="rounded-2xl p-4 ${cardBorder} transition">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            
+                            <!-- Left: Store Info & Badges -->
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-11 h-11 rounded-xl ${shop.badgeBg} text-white font-extrabold text-sm flex items-center justify-center shrink-0 shadow-sm">
+                                    ${shop.store.substring(0, 2).toUpperCase()}
+                                </div>
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="text-base font-extrabold text-slate-900">${shop.store}</span>
+                                        ${isBest ? `
+                                            <span class="bg-emerald-600 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                                <i class="fa-solid fa-crown text-amber-300"></i> BEST DEAL (#1 Lowest)
+                                            </span>
+                                        ` : ''}
+                                    </div>
+                                    
+                                    <!-- Warranty, COD, EMI Tags -->
+                                    <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                                        <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md ${shop.isOfficial ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                                            ${shop.warranty}
+                                        </span>
+                                        <span class="text-[11px] font-medium bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md">
+                                            ${shop.cod ? 'COD Available' : 'Prepayment Only'}
+                                        </span>
+                                        <span class="text-[11px] font-medium bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md">
+                                            ${shop.emi}
+                                        </span>
+                                    </div>
+
+                                    <!-- MFS Promo Info -->
+                                    <div class="text-xs mt-1.5 ${state.includeMfs && shop.appliedDiscount > 0 ? 'text-pink-700 font-semibold' : 'text-slate-400'}">
+                                        <i class="fa-solid fa-tag mr-1"></i>${shop.mfsNote}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Price Breakdown & CTA -->
+                            <div class="flex flex-wrap sm:flex-nowrap items-center justify-between lg:justify-end gap-4 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+                                <div class="text-left sm:text-right text-xs text-slate-500 space-y-0.5">
+                                    <div>Base Price: <strong class="text-slate-700">${formatBDT(shop.basePrice)}</strong></div>
+                                    <div>Delivery (${state.location === 'inside' ? 'Dhaka' : 'Outside'}): <strong class="text-slate-700">+${formatBDT(shop.appliedDelivery)}</strong></div>
+                                    ${shop.appliedDiscount > 0 ? `<div class="text-pink-600 font-semibold">MFS Discount: -${formatBDT(shop.appliedDiscount)}</div>` : ''}
+                                </div>
+
+                                <div class="text-right min-w-[115px]">
+                                    <div class="text-[10px] uppercase font-bold text-slate-400">Final Total</div>
+                                    <div class="text-xl font-extrabold ${isBest ? 'text-emerald-700' : 'text-slate-900'}">${formatBDT(shop.finalTotal)}</div>
+                                </div>
+
+                                <a href="${shop.url}" target="_blank" rel="noopener noreferrer" onclick="showToast('Opening ${shop.store} in a new tab...')" class="px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 ${isBest ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm' : 'bg-slate-900 hover:bg-slate-800 text-white'}">
+                                    <span>Go to Store</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Set WhatsApp alert target price
+            const targetPrice = Math.max(50, product.bestDeal.finalTotal - 150);
+            document.getElementById('alertTargetPrice').textContent = formatBDT(targetPrice);
+            document.getElementById('whatsappConfirmation').classList.add('hidden');
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('comparisonModal').classList.add('hidden');
+            document.body.style.overflow = '';
+            state.activeProductId = null;
+        }
+
+        // ==========================================
+        // 7. STATE ACTIONS & EVENT HANDLERS
+        // ==========================================
+        function switchMainTab(tab) {
+            state.activeTab = tab;
+            const viewCompare = document.getElementById('viewCompare');
+            const viewGuide = document.getElementById('viewGuide');
+            const tabCompare = document.getElementById('tabCompare');
+            const tabGuide = document.getElementById('tabGuide');
+
+            if (tab === 'compare') {
+                viewCompare.classList.remove('hidden');
+                viewGuide.classList.add('hidden');
+                tabCompare.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-emerald-600 text-white shadow-sm';
+                tabGuide.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200';
+            } else {
+                viewCompare.classList.add('hidden');
+                viewGuide.classList.remove('hidden');
+                tabGuide.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-emerald-600 text-white shadow-sm';
+                tabCompare.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function setLocation(loc) {
+            state.location = loc;
+            const btnIn = document.getElementById('btnInsideDhaka');
+            const btnOut = document.getElementById('btnOutsideDhaka');
+            const mobileLabel = document.getElementById('mobileLocationLabel');
+            const heroText = document.getElementById('heroLocationText');
+
+            if (loc === 'inside') {
+                btnIn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-white text-slate-900 shadow-sm';
+                btnOut.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-600 hover:text-slate-900';
+                mobileLabel.textContent = 'Inside Dhaka (৳60)';
+                heroText.textContent = 'Inside Dhaka (৳60 avg)';
+            } else {
+                btnOut.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-white text-slate-900 shadow-sm';
+                btnIn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-600 hover:text-slate-900';
+                mobileLabel.textContent = 'Outside Dhaka (৳120)';
+                heroText.textContent = 'Outside Dhaka (৳120 avg)';
+            }
+
+            renderProducts();
+            if (state.activeProductId) {
+                openComparisonModal(state.activeProductId);
+            }
+            showToast(`Delivery updated: ${loc === 'inside' ? 'Inside Dhaka (৳60 avg)' : 'Outside Dhaka (৳120 avg)'}`);
+        }
+
+        function toggleLocation() {
+            setLocation(state.location === 'inside' ? 'outside' : 'inside');
+        }
+
+        function toggleMfsOffers() {
+            state.includeMfs = !state.includeMfs;
+            const btn = document.getElementById('mfsToggleBtn');
+            const label = document.getElementById('mfsToggleLabel');
+            const dot = document.getElementById('mfsDot');
+
+            if (state.includeMfs) {
+                btn.className = 'w-full sm:w-auto flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-bold transition shadow-sm bg-pink-50 border-pink-200 text-pink-700 hover:bg-pink-100';
+                label.textContent = 'Include bKash/Nagad Offers: ON';
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-pink-600 animate-pulse';
+                showToast('bKash & Nagad promo discounts applied!');
+            } else {
+                btn.className = 'w-full sm:w-auto flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl border text-xs font-bold transition shadow-sm bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200';
+                label.textContent = 'Include bKash/Nagad Offers: OFF';
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-400';
+                showToast('Showing regular prices without MFS discounts.');
+            }
+
+            renderProducts();
+            if (state.activeProductId) {
+                openComparisonModal(state.activeProductId);
+            }
+        }
+
+        function setCategory(catId) {
+            state.category = catId;
+            renderCategories();
+            renderProducts();
+        }
+
+        function handleSearch(val) {
+            state.searchQuery = val;
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (val.trim().length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+            if (state.activeTab !== 'compare') {
+                switchMainTab('compare');
+            }
+            renderProducts();
+        }
+
+        function quickSearch(term) {
+            const input = document.getElementById('searchInput');
+            input.value = term;
+            state.category = 'All';
+            renderCategories();
+            handleSearch(term);
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = '';
+            handleSearch('');
+            input.focus();
+        }
+
+        function resetFilters() {
+            state.category = 'All';
+            state.searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            document.getElementById('sortSelect').value = 'popularity';
+            renderCategories();
+            renderProducts();
+        }
+
+        function subscribeWhatsAppAlert(event) {
+            event.preventDefault();
+            const phone = document.getElementById('whatsappInput').value.trim();
+            const prod = PRODUCTS.find(p => p.id === state.activeProductId);
+            const confBox = document.getElementById('whatsappConfirmation');
+            const confText = document.getElementById('whatsappConfirmationText');
+
+            confText.textContent = `WhatsApp alert set for +88${phone}! We will notify you when "${prod.name}" drops in price.`;
+            confBox.classList.remove('hidden');
+            document.getElementById('whatsappInput').value = '';
+            showToast('WhatsApp price alert activated!');
+        }
+
+        function downloadSourceCode() {
+            try {
+                const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'index.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Downloaded index.html! Ready to upload to Netlify or Vercel.');
+            } catch (err) {
+                showToast('Unable to download automatically. Please save the page as index.html.');
+            }
+        }
+
+        let toastTimer = null;
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            msgEl.textContent = message;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
+        }
+
+        // Close modal when clicking outside backdrop or pressing Escape
+        document.getElementById('comparisonModal').addEventListener('click', function(e) {
+            if (e.target === this || e.target.classList.contains('min-h-screen')) {
+                closeComparisonModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('comparisonModal').classList.contains('hidden')) {
+                closeComparisonModal();
+            }
+        });
+
+        // ==========================================
+        // 8. INITIALIZE APPLICATION
+        // ==========================================
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
